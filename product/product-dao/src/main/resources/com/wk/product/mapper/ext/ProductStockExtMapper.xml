@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wk.product.mapper.ext.ProductStockExtMapper">
+  <resultMap id="BaseResultMap" type="com.wk.product.entity.base.ProductStock">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="freeze_num" jdbcType="INTEGER" property="freezeNum" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+  </resultMap>
+
+  <update id="subtractStock" >
+    update product_stock set freeze_num = freeze_num - #{num}
+    where product_id =#{productId} and freeze_num >= #{num}
+  </update>
+
+  <update id="freezeStock" >
+    update product_stock set freeze_num = freeze_num + #{num},num = num - #{num}
+    where product_id =#{productId} and num >= #{num}
+  </update>
+
+  <update id="addStock" >
+    update product_stock set num = num + #{num}
+    where product_id =#{productId}
+  </update>
+
+</mapper>

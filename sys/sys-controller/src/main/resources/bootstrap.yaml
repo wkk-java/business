@@ -1,0 +1,88 @@
+spring:
+  application:
+    name: @project.name@
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  cloud:
+    nacos:
+      server_address: ${NACOS_SERVER_ADDRESS:wk-server1:2000}
+      group: ${NACOS_GROUP:DEFAULT_GROUP}
+      namespace: ${NACOS_NAMESPACE:dev}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${SECURITY_USER_PASSWORD}
+
+seata:
+  application-id: sys-server
+  tx-service-group: sys-server-group
+  service:
+    vgroup-mapping:
+      sys-server-group: default
+      sys-server-fescar-service-group: default
+    grouplist:
+      default: localhost:8091
+  registry:
+    type: nacos
+    nacos:
+      serverAddr: ${spring.cloud.nacos.server_address}
+      username: ${spring.cloud.nacos.username}
+      password: ${spring.cloud.nacos.password}
+      namespace: ${spring.cloud.nacos.namespace}
+      group: SEATA_GROUP
+      application: seata-server
+      cluster: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.server_address}
+      username: ${spring.cloud.nacos.username}
+      password: ${spring.cloud.nacos.password}
+      namespace: ${spring.cloud.nacos.namespace}
+      group: SEATA_GROUP
+---
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: ${spring.cloud.nacos.server_address}
+        file-extension: yaml
+        prefix: ${spring.application.name}
+        group: ${spring.cloud.nacos.group}
+        namespace: ${spring.cloud.nacos.namespace}
+        # 最大重试次数
+        max-retry: 10
+        # 自动刷新
+        refreshEnabled: true
+        # 重试时间
+        config-retry-time: 2000
+        # 监听长轮询超时时间
+        config-long-poll-timeout: 46000
+        # 通用配置
+        shared-configs:
+          - data-id: application-common.yaml
+            group: ${spring.cloud.nacos.group}
+            namespace: ${spring.cloud.nacos.namespace}
+            refresh: true
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+      discovery:
+        server-addr: ${spring.cloud.nacos.server_address}
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+        namespace: ${spring.cloud.nacos.namespace}
+...
+
+---
+logging:
+  file:
+    name: /Users/vince/logs/${spring.application.name}.log
+spring:
+  profiles: dev
+...
+
+---
+logging:
+  file:
+    name: /usr/logs/${spring.application.name}.log
+spring:
+  profiles: test
+...

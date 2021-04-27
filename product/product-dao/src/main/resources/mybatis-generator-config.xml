@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="context" targetRuntime="MyBatis3">
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+
+        <!-- 当表名或列名是关键字时，自动加``包括 -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <commentGenerator >
+            <property name="suppressAllComments" value="true"/>
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://wk-server1:3306/product"
+                        userId="root" password="james"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.wk.product.entity.base" targetProject="../product-entity/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- *Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="com.wk.product.mapper.base" targetProject="src/main/resources" />
+        <!-- Mapper.java 接口文件的位置 -->
+        <javaClientGenerator targetPackage="com.wk.product.mapper.base" targetProject="src/main/java" type="XMLMAPPER" />
+
+        <!-- 相关表的配置 -->
+        <table tableName="product_info" domainObjectName="ProductInfo">
+            <domainObjectRenamingRule searchString="^Product" replaceString="" />
+            <columnOverride column="del_flag" javaType="java.lang.Boolean" />
+        </table>
+
+        <table tableName="product_stock" domainObjectName="ProductStock">
+            <domainObjectRenamingRule searchString="^Product" replaceString="" />
+            <columnOverride column="del_flag" javaType="java.lang.Boolean" />
+        </table>
+
+    </context>
+</generatorConfiguration>
