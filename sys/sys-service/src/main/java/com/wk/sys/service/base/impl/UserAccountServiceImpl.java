@@ -7,6 +7,7 @@ import com.wk.sys.mapper.base.UserAccountMapper;
 import com.wk.sys.service.base.UserAccountService;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -50,23 +51,23 @@ public class UserAccountServiceImpl implements UserAccountService {
             log.error("传入参数 id 与 userId 不可同时为空!");
         }
 
-        UserAccount userAccountDatabase = null;
-        if (!StringUtils.isEmpty(userAccount.getId())) {
-            userAccountDatabase = getUserAccountById(userAccount.getId());
-        }
-
-        if (!StringUtils.isEmpty(userAccount.getUserId())) {
-            userAccountDatabase = getUserAccountByUserId(userAccount.getUserId());
-        }
-        if (userAccountDatabase == null) {
-            log.error("未查询到相关账户信息! 参数:{}", userAccount);
-        }
-        UserAccountExample userAccountExample = new UserAccountExample();
-        userAccountExample.createCriteria()
-                .andUserIdEqualTo(userAccountDatabase.getUserId())
-                .andAmountEqualTo(userAccountDatabase.getAmount())
-                .andBalanceEqualTo(userAccountDatabase.getBalance())
-                .andFreezeEqualTo(userAccountDatabase.getBalance());
+//        UserAccount userAccountDatabase = null;
+//        if (!StringUtils.isEmpty(userAccount.getId())) {
+//            userAccountDatabase = getUserAccountById(userAccount.getId());
+//        }
+//
+//        if (!StringUtils.isEmpty(userAccount.getUserId())) {
+//            userAccountDatabase = getUserAccountByUserId(userAccount.getUserId());
+//        }
+//        if (userAccountDatabase == null) {
+//            log.error("未查询到相关账户信息! 参数:{}", userAccount);
+//        }
+//        UserAccountExample userAccountExample = new UserAccountExample();
+//        userAccountExample.createCriteria()
+//                .andUserIdEqualTo(userAccountDatabase.getUserId())
+//                .andAmountEqualTo(userAccountDatabase.getAmount())
+//                .andBalanceEqualTo(userAccountDatabase.getBalance())
+//                .andFreezeEqualTo(userAccountDatabase.getBalance());
         userAccountMapper.updateByPrimaryKeySelective(userAccount);
         return null;
     }
@@ -74,7 +75,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount addBalance(String userId, BigDecimal money) {
         UserAccount userAccount = getUserAccountByUserId(userId);
-        UserAccountExt userAccountExt = (UserAccountExt)userAccount;
+        UserAccountExt userAccountExt = (UserAccountExt) userAccount;
         userAccountExt.addMoney(money);
         saveUserAccount(userAccountExt);
         return userAccountExt;
@@ -83,7 +84,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount commitPayMoney(String userId, BigDecimal money) {
         UserAccount userAccount = getUserAccountByUserId(userId);
-        UserAccountExt userAccountExt = (UserAccountExt)userAccount;
+        UserAccountExt userAccountExt = (UserAccountExt) userAccount;
         userAccountExt.payMoney(money);
         saveUserAccount(userAccountExt);
         return userAccountExt;
@@ -93,9 +94,10 @@ public class UserAccountServiceImpl implements UserAccountService {
     public UserAccount commitFreezeBalance(String userId, BigDecimal money) {
         log.info("[commitFreezeBalance] 当前 XID: {}", RootContext.getXID());
         UserAccount userAccount = getUserAccountByUserId(userId);
-//        UserAccountExt userAccountExt = (UserAccountExt)userAccount;
-//        userAccountExt.freezeMoney(money);
-        saveUserAccount(userAccount);
+        UserAccountExt userAccountExt = new UserAccountExt();
+        BeanUtils.copyProperties(userAccount, userAccountExt);
+        userAccountExt.freezeMoney(money);
+        saveUserAccount(userAccountExt);
         return userAccount;
     }
 

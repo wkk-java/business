@@ -17,7 +17,7 @@ seata:
     vgroup-mapping:
       order-server-group: default
     grouplist:
-      default: localhost:8091
+      default: wk-server1:8091
   registry:
     type: nacos
     nacos:
@@ -36,6 +36,7 @@ seata:
       password: ${spring.cloud.nacos.password}
       namespace: ${spring.cloud.nacos.namespace}
       group: SEATA_GROUP
+
 ---
 spring:
   cloud:
@@ -72,7 +73,7 @@ spring:
 ---
 logging:
   file:
-    name: /Users/vince/logs/${spring.application.name}.log
+    name: d:/logs/${spring.application.name}.log
 spring:
   profiles: dev
 ...

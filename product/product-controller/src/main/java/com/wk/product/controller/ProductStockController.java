@@ -25,7 +25,7 @@ public class ProductStockController {
     @GlobalTransactional
     @RequestMapping(value = "/freezeProductStock", method = RequestMethod.POST)
     public void freezeProductStock(@RequestBody ProductStock productStock) {
-        iProductStockService.commitFreezeStock(productStock.getProductId(), productStock.getNum());
+        iProductStockService.commitFreezeStock(productStock.getProductId(), productStock.getFreezeNum());
     }
 
     @GlobalTransactional

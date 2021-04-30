@@ -19,7 +19,7 @@ seata:
       sys-server-group: default
       sys-server-fescar-service-group: default
     grouplist:
-      default: localhost:8091
+      default: wk-server1:8091
   registry:
     type: nacos
     nacos:
@@ -74,7 +74,7 @@ spring:
 ---
 logging:
   file:
-    name: /Users/vince/logs/${spring.application.name}.log
+    name: d:/logs/${spring.application.name}.log
 spring:
   profiles: dev
 ...

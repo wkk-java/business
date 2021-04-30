@@ -31,19 +31,16 @@ public class UserAccountController {
         return userAccountService.getUserAccountByUserId(userId);
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/addMoney", method = RequestMethod.POST)
     public UserAccount addMoney(@RequestBody UserAccountExt userAccount) {
         return userAccountService.addBalance(userAccount.getUserId(), userAccount.getMoney());
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/payMoney", method = RequestMethod.POST)
     public UserAccount payMoney(@RequestBody UserAccountExt userAccount) {
         return userAccountService.commitPayMoney(userAccount.getUserId(), userAccount.getMoney());
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/freezeMoney", method = RequestMethod.POST)
     public UserAccount freezeMoney(@RequestBody UserAccountExt userAccount) {
         return userAccountService.commitFreezeBalance(userAccount.getUserId(), userAccount.getMoney());
