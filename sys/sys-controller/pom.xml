@@ -5,23 +5,23 @@
     <parent>
         <artifactId>sys</artifactId>
         <groupId>com.wk</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sys-controller</artifactId>
     <name>sys-server</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
-        <jib.skip>true</jib.skip>
+<!--        <jib.skip>true</jib.skip>-->
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.wk</groupId>
             <artifactId>sys-service</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -5,14 +5,14 @@
     <parent>
         <artifactId>business</artifactId>
         <groupId>com.wk</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sys</artifactId>
     <packaging>pom</packaging>
     <name>sys</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <modules>
         <module>sys-entity</module>
         <module>sys-controller</module>
