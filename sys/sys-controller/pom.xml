@@ -37,6 +37,10 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <inherited>false</inherited>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>
