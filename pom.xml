@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.1</version>
         </dependency>
 
 <!--        &lt;!&ndash;    gateway网关相关的依赖    &ndash;&gt;-->
