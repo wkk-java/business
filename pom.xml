@@ -26,13 +26,12 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-            <version>2.1.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.1</version>
         </dependency>
 
 <!--        &lt;!&ndash;    gateway网关相关的依赖    &ndash;&gt;-->
