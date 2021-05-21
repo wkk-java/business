@@ -42,12 +42,12 @@
 <!--            <version>1.8.1</version>-->
 <!--        </dependency>-->
 
-<!--        &lt;!&ndash;    sentinel热点参数限流相关的依赖    &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.csp</groupId>-->
-<!--            <artifactId>sentinel-parameter-flow-control</artifactId>-->
-<!--            <version>1.8.1</version>-->
-<!--        </dependency>-->
+        <!--    sentinel热点参数限流相关的依赖    -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-parameter-flow-control</artifactId>
+            <version>1.8.1</version>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
