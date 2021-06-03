@@ -9,6 +9,7 @@ import com.wk.sys.service.base.OrderInfoService;
 import com.wk.sys.service.feign.OrderInfoFeignService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -37,10 +40,24 @@ public class UserInfoController {
     @Autowired
     private PropertiesMap config;
 
+    @Value("${server.port}")
+    private String port;
+
     @GetMapping(value = "/getConfig")
     public String getConfig() {
         log.info("getConfig:{}", config.getMask());
         return config.getMask();
+    }
+
+    @GetMapping(value = "getIp")
+    public String getIpInfo() {
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return "http://" + address.getHostAddress() + ":" + this.port;
     }
 
     @GetMapping(value = "/findOrderList")
@@ -81,8 +98,8 @@ public class UserInfoController {
 
     @GetMapping(value = "/getUserPageList")
     public PageInfo<SysUser> findUserListWithPage(@RequestParam(value = "pageSize") Integer pageSize,
-                                         @RequestParam(value = "pageNum") Integer pageNum) {
-       return orderInfoService.findUserListWithPage(pageSize, pageNum);
+                                                  @RequestParam(value = "pageNum") Integer pageNum) {
+        return orderInfoService.findUserListWithPage(pageSize, pageNum);
     }
 
 
