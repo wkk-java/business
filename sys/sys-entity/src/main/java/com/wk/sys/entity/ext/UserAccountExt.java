@@ -1,6 +1,6 @@
 package com.wk.sys.entity.ext;
 
-import com.wk.entity.exception.BusinessRuntimeException;
+import com.wk.entity.exception.BusinessSeataException;
 import com.wk.entity.exception.ExceptionType;
 import com.wk.sys.entity.base.UserAccount;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class UserAccountExt extends UserAccount implements Serializable {
      */
     private BigDecimal money;
 
-    public UserAccount addMoney(BigDecimal money){
+    public UserAccount addMoney(BigDecimal money) {
         BigDecimal amount = this.getAmount();
         BigDecimal balance = this.getBalance();
         BigDecimal freeze = this.getFreeze();
@@ -37,7 +37,7 @@ public class UserAccountExt extends UserAccount implements Serializable {
         return this;
     }
 
-    public UserAccount freezeMoney(BigDecimal money){
+    public UserAccount freezeMoney(BigDecimal money) throws BusinessSeataException {
         BigDecimal amount = this.getAmount();
         BigDecimal balance = this.getBalance();
         BigDecimal freeze = this.getFreeze();
@@ -45,13 +45,13 @@ public class UserAccountExt extends UserAccount implements Serializable {
         this.setBalance(balance.subtract(money));
         if (this.getBalance().compareTo(BigDecimal.ZERO) < 0) {
             log.error("当前金额不足以提交冻结, balance:{}, freeze:{}", balance, freeze);
-            throw new BusinessRuntimeException(ExceptionType.REMARK, "当前金额不足以提交冻结");
+            throw new BusinessSeataException(ExceptionType.REMARK, "当前金额不足以提交冻结");
         }
         this.setFreeze(freeze.add(money));
         return this;
     }
 
-    public UserAccount payMoney(BigDecimal money){
+    public UserAccount payMoney(BigDecimal money) throws BusinessSeataException {
         BigDecimal amount = this.getAmount();
         BigDecimal balance = this.getBalance();
         BigDecimal freeze = this.getFreeze();
@@ -60,7 +60,7 @@ public class UserAccountExt extends UserAccount implements Serializable {
         this.setFreeze(freeze.subtract(money));
         if (this.getFreeze().compareTo(BigDecimal.ZERO) < 0) {
             log.error("当前冻结金额不足以支付, freeze:{}, payMoney:{}", freeze, money);
-            throw new BusinessRuntimeException(ExceptionType.REMARK, "当前冻结金额不足以提交支付");
+            throw new BusinessSeataException(ExceptionType.REMARK, "当前冻结金额不足以提交支付");
         }
         return this;
     }

@@ -20,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -46,7 +43,6 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
     @Autowired
     private OrderInfoService orderInfoService;
 
-    @GlobalTransactional
     @Override
     public List<OrderInfoExt> findOrderList() {
         List<OrderInfo> orderList = orderInfoService.findOrderList();
@@ -70,7 +66,7 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
         return orderExtList;
     }
 
-    @Transactional
+    @GlobalTransactional
     @Override
     public void addOrder(OrderInfoExt orderInfo) {
         log.info("[addOrder] 当前 XID: {}", RootContext.getXID());
@@ -79,15 +75,16 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
         //查询计算产品价格
         ProductInfo productInfo = productInfoFeignService.getProductInfoById(orderInfo.getProductId());
         BigDecimal needMoney = productInfo.getPrice().multiply(new BigDecimal(orderInfo.getProductNum()));
+        orderInfo.setPrice(needMoney.toString());
+        orderInfo.setId(UUID.randomUUID().toString());
+        orderInfo.setCrtTime(new Date());
+        orderInfoService.addOrder(orderInfo);
         //冻结资金
         UserAccountExt userAccount = UserAccountExt.builder().money(needMoney).userId(orderInfo.getUserId()).build();
         userAccountFeignService.freezeMoney(userAccount);
         //扣减库存
         ProductStock productStock = ProductStock.builder().productId(orderInfo.getProductId()).freezeNum(orderInfo.getProductNum()).build();
         productStockFeignService.freezeProductStock(productStock);
-        orderInfo.setPrice(needMoney.toString());
-        orderInfo.setId(UUID.randomUUID().toString());
-        orderInfoService.addOrder(orderInfo);
 
     }
 }
