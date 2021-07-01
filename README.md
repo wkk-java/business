@@ -2,7 +2,7 @@
 </br>
 
 ## Introduction
-基于springboot / springcloud **最新版**,用于实操各类 **最新** java中间件      
+>基于springboot / springcloud **最新版**,用于实操各类 **最新** java中间件      
 
 现已集成 nacos / seata / sentinel /  elastic search / rabbitmq / kafka / fastdfs / redis / mybatis / ...
 
