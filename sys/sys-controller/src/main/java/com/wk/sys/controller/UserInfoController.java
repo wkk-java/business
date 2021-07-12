@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,14 +51,14 @@ public class UserInfoController {
     }
 
     @GetMapping(value = "getIp")
-    public String getIpInfo() {
+    public String getIpInfo(@RequestHeader("token") String token, @RequestHeader("userId") String userId) {
         InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return "http://" + address.getHostAddress() + ":" + this.port;
+        return "http://" + address.getHostAddress() + ":" + this.port + ",token:" + token + ",userId:" + userId;
     }
 
     @GetMapping(value = "/findOrderList")
