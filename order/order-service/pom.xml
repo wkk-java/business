@@ -12,6 +12,7 @@
     <artifactId>order-service</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>com.wk</groupId>
             <artifactId>order-dao</artifactId>
