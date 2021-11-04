@@ -1,6 +1,5 @@
 package com.wk.sys.service.feign.impl;
 
-import com.wk.order.entity.base.OrderInfo;
 import com.wk.order.entity.ext.OrderInfoExt;
 import com.wk.sys.service.feign.OrderInfoFeignService;
 import feign.hystrix.FallbackFactory;

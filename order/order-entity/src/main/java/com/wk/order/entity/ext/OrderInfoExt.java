@@ -2,15 +2,13 @@ package com.wk.order.entity.ext;
 
 import com.wk.entity.exception.BusinessRuntimeException;
 import com.wk.entity.exception.ExceptionType;
-import com.wk.order.entity.base.OrderInfo;
+import com.wk.order.entity.OrderInfo;
 import com.wk.product.entity.base.ProductInfo;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author: vince
@@ -18,8 +16,6 @@ import java.util.Date;
  * @description:
  */
 @Data
-@NoArgsConstructor
-@SuperBuilder
 public class OrderInfoExt extends OrderInfo implements Serializable {
 
     private ProductInfo productInfo;
@@ -37,7 +33,11 @@ public class OrderInfoExt extends OrderInfo implements Serializable {
     }
 
     public static OrderInfo getTestBean(String orderId) {
-        OrderInfo orderInfo = OrderInfoExt.builder().id(orderId).crtBy("wk").crtTime(new Date()).price("56.555").build();
+        OrderInfo orderInfo = new OrderInfo()
+                .setId(orderId)
+                .setCrtBy("wk")
+                .setCrtTime(LocalDateTime.now())
+                .setPrice("56.555");
         return orderInfo;
     }
 

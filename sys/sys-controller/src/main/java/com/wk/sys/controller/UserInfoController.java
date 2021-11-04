@@ -1,7 +1,6 @@
 package com.wk.sys.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.wk.order.entity.base.OrderInfo;
 import com.wk.order.entity.ext.OrderInfoExt;
 import com.wk.sys.controller.config.PropertiesMap;
 import com.wk.sys.entity.base.SysUser;

@@ -1,4 +1,4 @@
-package com.wk.order.service.base;
+package com.wk.order.service;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;

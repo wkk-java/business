@@ -1,8 +1,8 @@
 package com.wk.order.service.composite.impl;
 
-import com.wk.order.entity.base.OrderInfo;
+import com.wk.order.entity.OrderInfo;
 import com.wk.order.entity.ext.OrderInfoExt;
-import com.wk.order.service.base.OrderInfoService;
+import com.wk.order.service.OrderInfoService;
 import com.wk.order.service.composite.OrderInfoCompositeService;
 import com.wk.order.service.feign.product.ProductInfoFeignService;
 import com.wk.order.service.feign.product.ProductStockFeignService;
@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -45,7 +44,7 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
 
     @Override
     public List<OrderInfoExt> findOrderList() {
-        List<OrderInfo> orderList = orderInfoService.findOrderList();
+        List<OrderInfo> orderList = orderInfoService.list();
         if (CollectionUtils.isEmpty(orderList)) {
             return null;
         }
@@ -58,7 +57,7 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
         //返回结果
         List<OrderInfoExt> orderExtList = new ArrayList<>(orderList.size());
         orderList.stream().forEach(obj -> {
-            OrderInfoExt orderInfoExt = OrderInfoExt.builder().build();
+            OrderInfoExt orderInfoExt = new OrderInfoExt();
             BeanUtils.copyProperties(obj, orderInfoExt);
             orderInfoExt.setProductInfo(productInfoMap.get(obj.getProductId()));
             orderExtList.add(orderInfoExt);
@@ -77,8 +76,8 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
         BigDecimal needMoney = productInfo.getPrice().multiply(new BigDecimal(orderInfo.getProductNum()));
         orderInfo.setPrice(needMoney.toString());
         orderInfo.setId(UUID.randomUUID().toString());
-        orderInfo.setCrtTime(new Date());
-        orderInfoService.addOrder(orderInfo);
+//        orderInfo.setCrtTime(new Date());
+        orderInfoService.save(orderInfo);
         //冻结资金
         UserAccountExt userAccount = UserAccountExt.builder().money(needMoney).userId(orderInfo.getUserId()).build();
         userAccountFeignService.freezeMoney(userAccount);
