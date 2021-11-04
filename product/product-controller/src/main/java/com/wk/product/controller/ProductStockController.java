@@ -1,5 +1,6 @@
 package com.wk.product.controller;
 
+import com.wk.entity.exception.BusinessSeataException;
 import com.wk.product.entity.base.ProductStock;
 import com.wk.product.service.base.IProductStockService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -22,25 +23,21 @@ public class ProductStockController {
     @Autowired
     private IProductStockService iProductStockService;
 
-    @GlobalTransactional
     @RequestMapping(value = "/freezeProductStock", method = RequestMethod.POST)
-    public void freezeProductStock(@RequestBody ProductStock productStock) {
+    public void freezeProductStock(@RequestBody ProductStock productStock) throws BusinessSeataException {
         iProductStockService.commitFreezeStock(productStock.getProductId(), productStock.getFreezeNum());
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/subProductStock", method = RequestMethod.POST)
-    public void subProductStock(@RequestBody ProductStock productStock) {
+    public void subProductStock(@RequestBody ProductStock productStock) throws BusinessSeataException{
         iProductStockService.commitSubStock(productStock.getProductId(), productStock.getNum());
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/addProductStock", method = RequestMethod.POST)
-    public void addProductStock(@RequestBody ProductStock productStock) {
+    public void addProductStock(@RequestBody ProductStock productStock) throws BusinessSeataException {
         iProductStockService.commitAddStock(productStock.getProductId(), productStock.getNum());
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/getProductStock", method = RequestMethod.GET)
     public ProductStock getProductStock(@RequestParam("productId") String productId) {
         return iProductStockService.getProductStock(productId);

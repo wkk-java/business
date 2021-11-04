@@ -1,5 +1,6 @@
 package com.wk.sys.service.base.impl;
 
+import com.wk.entity.exception.BusinessSeataException;
 import com.wk.sys.entity.base.UserAccount;
 import com.wk.sys.entity.base.UserAccountExample;
 import com.wk.sys.entity.ext.UserAccountExt;
@@ -82,7 +83,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public UserAccount commitPayMoney(String userId, BigDecimal money) {
+    public UserAccount commitPayMoney(String userId, BigDecimal money) throws BusinessSeataException {
         UserAccount userAccount = getUserAccountByUserId(userId);
         UserAccountExt userAccountExt = (UserAccountExt) userAccount;
         userAccountExt.payMoney(money);
@@ -91,7 +92,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public UserAccount commitFreezeBalance(String userId, BigDecimal money) {
+    public UserAccount commitFreezeBalance(String userId, BigDecimal money) throws BusinessSeataException {
         log.info("[commitFreezeBalance] 当前 XID: {}", RootContext.getXID());
         UserAccount userAccount = getUserAccountByUserId(userId);
         UserAccountExt userAccountExt = new UserAccountExt();

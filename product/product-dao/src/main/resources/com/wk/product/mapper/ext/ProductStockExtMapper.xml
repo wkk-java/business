@@ -10,17 +10,17 @@
   </resultMap>
 
   <update id="subtractStock" >
-    update product_stock set freeze_num = freeze_num - #{num}
+    update product_stock set freeze_num = freeze_num - #{num},update_time =now()
     where product_id =#{productId} and freeze_num >= #{num}
   </update>
 
   <update id="freezeStock" >
-    update product_stock set freeze_num = freeze_num + #{num},num = num - #{num}
+    update product_stock set freeze_num = freeze_num + #{num},num = num - #{num},update_time =now()
     where product_id =#{productId} and num >= #{num}
   </update>
 
   <update id="addStock" >
-    update product_stock set num = num + #{num}
+    update product_stock set num = num + #{num},update_time =now(),create_time =now()
     where product_id =#{productId}
   </update>
 

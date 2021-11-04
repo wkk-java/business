@@ -1,5 +1,6 @@
 package com.wk.sys.controller;
 
+import com.wk.entity.exception.BusinessSeataException;
 import com.wk.sys.entity.base.UserAccount;
 import com.wk.sys.entity.ext.UserAccountExt;
 import com.wk.sys.service.base.UserAccountService;
@@ -37,12 +38,12 @@ public class UserAccountController {
     }
 
     @RequestMapping(value = "/payMoney", method = RequestMethod.POST)
-    public UserAccount payMoney(@RequestBody UserAccountExt userAccount) {
+    public UserAccount payMoney(@RequestBody UserAccountExt userAccount) throws BusinessSeataException {
         return userAccountService.commitPayMoney(userAccount.getUserId(), userAccount.getMoney());
     }
 
     @RequestMapping(value = "/freezeMoney", method = RequestMethod.POST)
-    public UserAccount freezeMoney(@RequestBody UserAccountExt userAccount) {
+    public UserAccount freezeMoney(@RequestBody UserAccountExt userAccount) throws BusinessSeataException {
         return userAccountService.commitFreezeBalance(userAccount.getUserId(), userAccount.getMoney());
     }
 

@@ -1,6 +1,7 @@
 package com.wk.product.service.base.impl;
 
 import com.wk.entity.exception.BusinessRuntimeException;
+import com.wk.entity.exception.BusinessSeataException;
 import com.wk.entity.exception.ExceptionType;
 import com.wk.product.entity.base.ProductInfo;
 import com.wk.product.entity.base.ProductStock;
@@ -46,14 +47,13 @@ public class ProductStockServiceImpl implements IProductStockService {
      * @param productId
      * @param num
      */
-    @Transactional
     @Override
-    public void commitFreezeStock(String productId, int num) {
+    public void commitFreezeStock(String productId, int num) throws BusinessSeataException {
         log.info("[commitFreezeStock] 当前 XID: {}", RootContext.getXID());
         int result = productStockMapper.freezeStock(productId, num);
         if (result <= 0) {
             log.error("库存冻结失败,product:{}, num:{}", productId, num);
-            throw new BusinessRuntimeException(ExceptionType.REMARK, "库存冻结失败");
+            throw new BusinessSeataException(ExceptionType.REMARK, "库存冻结失败");
         }
     }
 
@@ -64,11 +64,11 @@ public class ProductStockServiceImpl implements IProductStockService {
      * @param num
      */
     @Override
-    public void commitSubStock(String productId, int num) {
+    public void commitSubStock(String productId, int num) throws BusinessSeataException {
         int result = productStockMapper.subtractStock(productId, num);
         if (result <= 0) {
             log.error("库存扣减失败,product:{}, num:{}", productId, num);
-            throw new BusinessRuntimeException(ExceptionType.REMARK, "库存扣减失败");
+            throw new BusinessSeataException(ExceptionType.REMARK, "库存扣减失败");
         }
     }
 
@@ -79,7 +79,7 @@ public class ProductStockServiceImpl implements IProductStockService {
      * @param num
      */
     @Override
-    public void commitAddStock(String productId, int num) {
+    public void commitAddStock(String productId, int num) throws BusinessSeataException {
         ProductInfo productInfo = iProductInfoService.getProductInfoById(productId);
         if (productInfo == null) {
             throw new BusinessRuntimeException(ExceptionType.REMARK, "未找到该产品信息!");
@@ -92,7 +92,7 @@ public class ProductStockServiceImpl implements IProductStockService {
         int result = productStockMapper.addStock(productId, num);
         if (result <= 0) {
             log.error("库存增加失败,product:{}, num:{}", productId, num);
-            throw new BusinessRuntimeException(ExceptionType.REMARK, "库存增加失败");
+            throw new BusinessSeataException(ExceptionType.REMARK, "库存增加失败");
         }
 
     }

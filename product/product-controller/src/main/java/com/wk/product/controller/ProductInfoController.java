@@ -24,19 +24,16 @@ public class ProductInfoController {
     @Autowired
     private IProductInfoService productInfoService;
 
-    @GlobalTransactional
     @RequestMapping(value = "/getProductInfo", method = RequestMethod.GET)
     public ProductInfo getProductInfo(@RequestParam("productCode") String productCode) {
         return productInfoService.getProductInfo(productCode);
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/getProductInfoById", method = RequestMethod.GET)
     public ProductInfo getProductInfoById(@RequestParam("productId") String productId) {
         return productInfoService.getProductInfoById(productId);
     }
 
-    @GlobalTransactional
     @RequestMapping(value = "/findProductList", method = RequestMethod.POST)
     public List<ProductInfo> findProductInfo(@RequestBody List<String> productIds) {
         return productInfoService.findProductList(productIds);

@@ -1,5 +1,6 @@
 package com.wk.sys.service.base;
 
+import com.wk.entity.exception.BusinessSeataException;
 import com.wk.sys.entity.base.UserAccount;
 
 import java.math.BigDecimal;
@@ -13,8 +14,8 @@ public interface UserAccountService {
 
     UserAccount addBalance(String userId, BigDecimal money);
 
-    UserAccount commitPayMoney(String userId, BigDecimal money);
+    UserAccount commitPayMoney(String userId, BigDecimal money) throws BusinessSeataException;
 
-    UserAccount commitFreezeBalance(String userId, BigDecimal money);
+    UserAccount commitFreezeBalance(String userId, BigDecimal money) throws BusinessSeataException;
 
 }
