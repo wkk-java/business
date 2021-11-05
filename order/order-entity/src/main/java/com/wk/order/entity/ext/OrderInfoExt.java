@@ -34,7 +34,7 @@ public class OrderInfoExt extends OrderInfo implements Serializable {
 
     public static OrderInfo getTestBean(String orderId) {
         OrderInfo orderInfo = new OrderInfo()
-                .setId(orderId)
+//                .setId(orderId)
                 .setCrtBy("wk")
                 .setCrtTime(LocalDateTime.now())
                 .setPrice("56.555");

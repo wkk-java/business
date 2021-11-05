@@ -1,9 +1,11 @@
 package com.wk.order.mapper;
 
-import com.wk.order.entity.OrderInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wk.order.entity.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,9 +13,9 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author wk
- * @since 2021-11-04
+ * @since 2021-11-05
  */
-@Repository
+@Mapper
 public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
 
 }

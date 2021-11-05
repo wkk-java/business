@@ -1,4 +1,4 @@
-package com.wk.order.service.base.impl;
+package com.wk.order.service.impl;
 
 import com.wk.order.entity.OrderInfo;
 import com.wk.order.mapper.OrderInfoMapper;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author wk
- * @since 2021-11-04
+ * @since 2021-11-05
  */
 @Service
 public class OrderInfoServiceImp extends ServiceImpl<OrderInfoMapper, OrderInfo> implements OrderInfoService {

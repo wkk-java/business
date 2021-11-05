@@ -67,12 +67,11 @@ public class RedisLearning {
         redisTemplate.setValueSerializer(stringSerializer);
         redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
-
     }
 
     private OrderInfo getBean(String orderId) {
         OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setId(orderId);
+//        orderInfo.setId(orderId);
         orderInfo.setCrtBy("wk");
         orderInfo.setCrtTime(LocalDateTime.now());
         orderInfo.setPrice("56.555");

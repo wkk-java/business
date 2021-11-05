@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @EnableFeignClients
 @SpringBootApplication
-@MapperScan("com.wk.order.mapper")
 public class Application {
 
 //    @Bean

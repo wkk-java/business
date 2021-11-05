@@ -75,7 +75,7 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
         ProductInfo productInfo = productInfoFeignService.getProductInfoById(orderInfo.getProductId());
         BigDecimal needMoney = productInfo.getPrice().multiply(new BigDecimal(orderInfo.getProductNum()));
         orderInfo.setPrice(needMoney.toString());
-        orderInfo.setId(UUID.randomUUID().toString());
+//        orderInfo.setId(UUID.randomUUID().toString());
 //        orderInfo.setCrtTime(new Date());
         orderInfoService.save(orderInfo);
         //冻结资金

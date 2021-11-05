@@ -4,19 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wk.order.entity.OrderInfo;
 import com.wk.order.mapper.OrderInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@MapperScan("com.wk.order.mapper")
 public class MybatisPlusTest extends JunitApplicationRunner {
 
     @Autowired
@@ -25,7 +23,7 @@ public class MybatisPlusTest extends JunitApplicationRunner {
     @Test
     public void selectOrderInfo() {
         QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name", "张三");
+        queryWrapper.like("name", "zhangsan");
         List<OrderInfo> orderInfos = orderInfoMapper.selectList(queryWrapper);
         log.info("result:{}", JSONObject.toJSONString(orderInfos));
     }
@@ -40,16 +38,31 @@ public class MybatisPlusTest extends JunitApplicationRunner {
 
     @Test
     public void addOrderInfo() {
-        OrderInfo orderInfo = new OrderInfo()
-                .setCrtTime(LocalDateTime.now());
+        OrderInfo orderInfo = new OrderInfo();
         orderInfoMapper.insert(orderInfo);
         log.info("result:{}", JSONObject.toJSONString(orderInfo));
+        //1456498121438482433
+        //1456498233514393602
+    }
+
+    @Test
+    public void deleteOrderInfo() {
+        orderInfoMapper.deleteById("1456498121438482433");
+        //1456498121438482433
+        //1456498233514393602
+    }
+
+    @Test
+    public void deleteAllOrderInfo() {
+        orderInfoMapper.delete(new QueryWrapper<>());
+        //1456498121438482433
+        //1456498233514393602
     }
 
     @Test
     public void saveOrderInfo() {
         OrderInfo orderInfos = new OrderInfo();
-        orderInfos.setName("zhangsan");
+        orderInfos.setId("1455496872911974401");
         UpdateWrapper<OrderInfo> wrapper = new UpdateWrapper<>();
         Map<String, Object> map = BeanUtils.beanToMap(orderInfos);
         wrapper.allEq(map, false);
@@ -57,5 +70,22 @@ public class MybatisPlusTest extends JunitApplicationRunner {
         orderInfo.setName("zhangsan111");
         int update = orderInfoMapper.update(orderInfo, wrapper);
         log.info("size:{},result:{}", update, JSONObject.toJSONString(orderInfo));
+    }
+
+    @Test
+    public void saveOrderInfoVersion() {
+        OrderInfo orderInfo = orderInfoMapper.selectById("1455496872911974401");
+        orderInfo.setName("张三你好");
+        orderInfoMapper.updateById(orderInfo);
+    }
+
+    @Test
+    public void selectOrderInfoByPage() {
+        Page<OrderInfo> page = new Page<>(1, 3);
+        QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", "zhangsan");
+        Page<OrderInfo> orderInfoIPage = orderInfoMapper.selectPage(page, queryWrapper);
+        log.info("总页数:{}", orderInfoIPage.getPages());
+        log.info("查询结果:{}", JSONObject.toJSONString(orderInfoIPage));
     }
 }

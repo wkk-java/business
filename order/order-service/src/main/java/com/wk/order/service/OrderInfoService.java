@@ -2,7 +2,6 @@ package com.wk.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wk.order.entity.OrderInfo;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -10,9 +9,8 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author wk
- * @since 2021-11-04
+ * @since 2021-11-05
  */
-@Service
 public interface OrderInfoService extends IService<OrderInfo> {
 
 }
