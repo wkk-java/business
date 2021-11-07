@@ -1,6 +1,6 @@
 package com.wk.sys.controller;
 
-import com.github.pagehelper.PageInfo;
+import com.wk.order.entity.OrderInfo;
 import com.wk.order.entity.ext.OrderInfoExt;
 import com.wk.sys.controller.config.PropertiesMap;
 import com.wk.sys.entity.base.SysUser;
@@ -96,11 +96,11 @@ public class UserInfoController {
         return orderInfoService.findUserList();
     }
 
-    @GetMapping(value = "/getUserPageList")
-    public PageInfo<SysUser> findUserListWithPage(@RequestParam(value = "pageSize") Integer pageSize,
-                                                  @RequestParam(value = "pageNum") Integer pageNum) {
-        return orderInfoService.findUserListWithPage(pageSize, pageNum);
-    }
+//    @GetMapping(value = "/getUserPageList")
+//    public PageInfo<SysUser> findUserListWithPage(@RequestParam(value = "pageSize") Integer pageSize,
+//                                                  @RequestParam(value = "pageNum") Integer pageNum) {
+//        return orderInfoService.findUserListWithPage(pageSize, pageNum);
+//    }
 
 
 }

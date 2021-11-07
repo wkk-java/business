@@ -1,7 +1,7 @@
 //package com.wk.order.service.feign.sys.impl;
 //
-//import com.wk.entity.exception.BusinessRuntimeException;
-//import com.wk.entity.exception.ExceptionType;
+//import com.wk.entity.com.wk.entity.exception.BusinessRuntimeException;
+//import com.wk.entity.com.wk.entity.exception.ExceptionType;
 //import com.wk.order.service.feign.sys.UserAccountFeignService;
 //import com.wk.sys.entity.base.UserAccount;
 //import com.wk.sys.entity.ext.UserAccountExt;

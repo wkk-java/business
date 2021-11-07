@@ -20,8 +20,9 @@ public class JunitApplicationRunner {
     public static void processBeforClass() {
         log.info("processBeforClass开始执行");
         //从系统环境变量中获取密码
-        System.setProperty("spring.profiles.active", "dev");
+        System.setProperty("SPRING_PROFILES_ACTIVE", System.getenv("HOME") != null ? "test" : "dev");
         //mock数据
+        System.setProperty("SECURITY_USER_PASSWORD", System.getenv("SECURITY_USER_PASSWORD"));
     }
 
     @AfterClass
@@ -32,5 +33,6 @@ public class JunitApplicationRunner {
 
     public static void main(String[] args) throws Exception {
         System.out.println(System.getenv("SECURITY_USER_PASSWORD"));
+        System.out.println(System.getenv("SPRING_PROFILES_ACTIVE"));
     }
 }

@@ -1,5 +1,6 @@
 package com.wk.sys.service.feign;
 
+import com.wk.order.entity.OrderInfo;
 import com.wk.order.entity.ext.OrderInfoExt;
 import com.wk.sys.service.feign.impl.OrderInfoFeignServiceImpl;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
