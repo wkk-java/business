@@ -1,9 +1,12 @@
 package com.wk;
 
+import com.wk.spring.annnotation.EnableMethodLogPrint;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author: vince
@@ -11,8 +14,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @description: 启动类
  */
 @Slf4j
+//@EnableMethodLogPrint
+@EnableAsync
 @EnableFeignClients
-@SpringBootApplication//(exclude = {SeataFeignClientAutoConfiguration.class})
+@SpringBootApplication
 public class Application {
 
 //    @Bean

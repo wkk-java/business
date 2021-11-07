@@ -10,6 +10,25 @@ spring:
       namespace: ${NACOS_NAMESPACE:dev}
       username: ${NACOS_USERNAME:nacos}
       password: ${SECURITY_USER_PASSWORD}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+    logfile:
+      externalFile: ${logging.file.name}
+#    restart:
+#      enabled: true
+#    shutdown:
+#      enabled: true
+    flyway:
+      enabled: true
+    auditevents:
+      enabled: true
 ---
 spring:
   cloud:
