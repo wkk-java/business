@@ -24,7 +24,13 @@
             <artifactId>common-dao-dependency</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
+        <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>druid</artifactId>
+           <version>1.2.8</version>
+       </dependency>
+
+        <!--        <dependency>-->
 <!--            <groupId>com.baomidou</groupId>-->
 <!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
 <!--            <version>3.4.3.4</version>-->
@@ -52,7 +58,6 @@
 <!--            <artifactId>druid-spring-boot-starter</artifactId>-->
 <!--            <version>1.2.8</version>-->
 <!--        </dependency>-->
-
     </dependencies>
 
     <build>
@@ -73,6 +78,7 @@
                     <packageName>com.wk.order</packageName>
 <!--                    <fileOverride>true</fileOverride>-->
                     <includeTables>order_info</includeTables>
+                    <excludeTables></excludeTables>
                 </configuration>
             </plugin>
         </plugins>
