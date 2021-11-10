@@ -19,6 +19,11 @@
             <artifactId>sys-entity</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.wk</groupId>
+            <artifactId>common-dao-dependency</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

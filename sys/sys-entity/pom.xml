@@ -11,5 +11,12 @@
 
     <artifactId>sys-entity</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.wk</groupId>
+            <artifactId>common-entity-dependency</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

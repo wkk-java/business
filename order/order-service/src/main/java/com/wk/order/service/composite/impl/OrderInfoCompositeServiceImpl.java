@@ -79,10 +79,12 @@ public class OrderInfoCompositeServiceImpl implements OrderInfoCompositeService 
 //        orderInfo.setCrtTime(new Date());
         orderInfoService.save(orderInfo);
         //冻结资金
-        UserAccountExt userAccount = UserAccountExt.builder().money(needMoney).userId(orderInfo.getUserId()).build();
+        UserAccountExt userAccount = new UserAccountExt();
+//                .builder().money(needMoney).userId(orderInfo.getUserId()).build();
         userAccountFeignService.freezeMoney(userAccount);
         //扣减库存
-        ProductStock productStock = ProductStock.builder().productId(orderInfo.getProductId()).freezeNum(orderInfo.getProductNum()).build();
+        ProductStock productStock = new ProductStock();
+        //.builder().productId(orderInfo.getProductId()).freezeNum(orderInfo.getProductNum()).build();
         productStockFeignService.freezeProductStock(productStock);
 
     }
