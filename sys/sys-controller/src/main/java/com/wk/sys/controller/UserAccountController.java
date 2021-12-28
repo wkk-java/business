@@ -1,10 +1,14 @@
 package com.wk.sys.controller;
 
 import com.wk.entity.exception.BusinessSeataException;
+import com.wk.entity.result.ResultView;
 import com.wk.sys.entity.base.UserAccount;
 import com.wk.sys.entity.ext.UserAccountExt;
 import com.wk.sys.service.base.UserAccountService;
+import io.seata.core.model.Result;
 import io.seata.spring.annotation.GlobalTransactional;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description:
  */
 @Slf4j
+@Api(tags = "用户账户API")
 @RestController
 @RequestMapping(value = "/userAccount")
 public class UserAccountController {
@@ -27,11 +32,19 @@ public class UserAccountController {
     @Autowired
     private UserAccountService userAccountService;
 
+    @ApiOperation(value = "获取账户信息")
+    @GetMapping(value = "/getUserAccount1")
+    public ResultView<UserAccount> getUserAccount1(@RequestParam("userId") String userId) {
+        UserAccount userAccount = userAccountService.getUserAccountByUserId(userId);
+        return ResultView.success(userAccount);
+    }
+    @ApiOperation(value = "获取账户信息")
     @GetMapping(value = "/getUserAccount")
     public UserAccount getUserAccount(@RequestParam("userId") String userId) {
         return userAccountService.getUserAccountByUserId(userId);
     }
 
+    @ApiOperation(value = "增加余额")
     @RequestMapping(value = "/addMoney", method = RequestMethod.POST)
     public UserAccount addMoney(@RequestBody UserAccountExt userAccount) {
         return userAccountService.addBalance(userAccount.getUserId(), userAccount.getMoney());

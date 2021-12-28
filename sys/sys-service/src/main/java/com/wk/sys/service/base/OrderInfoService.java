@@ -6,7 +6,6 @@ import com.wk.sys.entity.base.SysUser;
 import java.util.List;
 
 public interface OrderInfoService {
-
     SysUser loadUserByUsername(String loginName);
 
     SysUser getUserInfo(String loginName, String pwd);

@@ -6,6 +6,8 @@ import com.wk.sys.controller.config.PropertiesMap;
 import com.wk.sys.entity.base.SysUser;
 import com.wk.sys.service.base.OrderInfoService;
 import com.wk.sys.service.feign.OrderInfoFeignService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +29,7 @@ import java.util.List;
  * @description: 用户控制器
  */
 @Slf4j
+@Api(tags = "用户信息API")
 @RestController
 @RequestMapping(value = "/user")
 public class UserInfoController {
@@ -60,6 +63,7 @@ public class UserInfoController {
         return "http://" + address.getHostAddress() + ":" + this.port + ",token:" + token + ",userId:" + userId;
     }
 
+    @ApiOperation(value = "查询订单列表")
     @GetMapping(value = "/findOrderList")
     public List<OrderInfo> findOrderList() {
         return orderInfoFeignService.findOrderList();
