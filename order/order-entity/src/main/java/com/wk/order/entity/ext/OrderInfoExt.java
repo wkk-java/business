@@ -5,7 +5,7 @@ import com.wk.entity.exception.ExceptionType;
 import com.wk.order.entity.OrderInfo;
 import com.wk.product.entity.base.ProductInfo;
 import lombok.Data;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
